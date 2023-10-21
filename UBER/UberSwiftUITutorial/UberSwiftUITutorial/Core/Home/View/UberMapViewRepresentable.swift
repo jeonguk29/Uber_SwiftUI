@@ -13,7 +13,7 @@ struct UberMapViewRepresentable: UIViewRepresentable{
     let mapView = MKMapView()
     // makeUIView(context:) 메서드는 실제로 맵 뷰를 생성하고 초기 설정을 수행합니다.
     
-    let locationManager = LocationManager()
+    let locationManager = LocationManager() // 사용자에게 위치 권한 받고 컨트롤하는
     
     // this incharge to make our map view
     func makeUIView(context: Context) -> some UIView {
@@ -48,10 +48,10 @@ extension UberMapViewRepresentable{
             self.parent = parent
             super.init()
         }
-        // Function
+        // 사용자의 위치가 업데이트될 때마다 호출됩니다.
         func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
             let region = MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude),
+                center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude), // 유저의 위도 경도 획득
                 span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
             parent.mapView.setRegion(region, animated: true)
         }
